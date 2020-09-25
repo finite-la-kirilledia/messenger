@@ -47,6 +47,13 @@
         android:id="@+id/chatListFragment"
         android:name="com.finite_la_kirilledia.messenger.chat_list.ChatListFragment"
         android:label="Chats"
-        tools:layout="@layout/fragment_chat_list" />
+        tools:layout="@layout/fragment_chat_list">
+        <action
+            android:id="@+id/action_chatListFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/chatListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>
