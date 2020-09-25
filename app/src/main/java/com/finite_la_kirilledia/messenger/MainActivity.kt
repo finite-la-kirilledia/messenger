@@ -6,6 +6,9 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.finite_la_kirilledia.messenger.login.LoginFragmentDirections
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,9 +20,13 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.navHostFragment)
         val appBarConfiguration = AppBarConfiguration
-            .Builder(R.id.loginFragment, R.id.registerFragment)
+            .Builder(R.id.loginFragment, R.id.registerFragment, R.id.chatListFragment)
             .build()
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+
+        if (Firebase.auth.uid != null) {
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToChatListFragment())
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
