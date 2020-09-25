@@ -42,6 +42,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx:19.2.0'
     implementation 'com.google.firebase:firebase-database-ktx:19.4.0'
 
+    // Groupie
+    implementation "com.xwray:groupie:2.1.0"
+
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 }
