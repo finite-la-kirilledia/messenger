@@ -6,7 +6,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.chat_list_item.view.*
 
-class ChatListItem(private val user: User) : Item<ViewHolder>() {
+class ChatListItem(val user: User) : Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.username.text = user.username

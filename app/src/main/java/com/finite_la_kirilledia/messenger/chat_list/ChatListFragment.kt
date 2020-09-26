@@ -28,6 +28,7 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = GroupAdapter()
+        adapter.setOnItemClickListener { item, view -> findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToChatFragment((item as ChatListItem).user)) }
         recyclerViewChatList.adapter = adapter
         loadUsers()
 

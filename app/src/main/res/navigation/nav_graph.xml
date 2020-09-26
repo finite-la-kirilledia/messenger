@@ -54,6 +54,18 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/chatListFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_chatListFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.finite_la_kirilledia.messenger.chat.ChatFragment"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="selectedUser"
+            app:argType="com.finite_la_kirilledia.messenger.User" />
     </fragment>
 
 </navigation>
