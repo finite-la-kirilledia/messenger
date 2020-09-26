@@ -22,10 +22,16 @@ import timber.log.Timber
 
 class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
 
+    companion object {
+        var currentUser: User? = null
+    }
+
     private lateinit var adapter: GroupAdapter<ViewHolder>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initCurrentUser()
 
         adapter = GroupAdapter()
         adapter.setOnItemClickListener { item, view -> findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToChatFragment((item as ChatListItem).user)) }
@@ -44,10 +50,25 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
         when (item.itemId) {
             R.id.menu_logout -> {
                 Firebase.auth.signOut()
+                currentUser = null
                 findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToLoginFragment())
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initCurrentUser() {
+        val currentUserId = Firebase.auth.uid
+        val databaseReference = Firebase.database.getReference("/users/$currentUserId")
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                currentUser = snapshot.getValue(User::class.java)!!
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Timber.d("Failed to init current user: ${error.message}")
+            }
+        })
     }
 
     private fun loadUsers() {
